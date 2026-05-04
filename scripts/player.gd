@@ -18,6 +18,7 @@ var attack_speed_level: int = 0
 var pierce_level: int = 0
 var split_level: int = 0
 var damage_level: int = 0
+var _is_dead: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
@@ -74,9 +75,12 @@ func _find_nearest_enemy() -> Node2D:
 	return nearest
 
 func take_damage(amount: int) -> void:
+	if _is_dead:
+		return
 	current_health = max(current_health - amount, 0)
 	health_changed.emit(current_health, max_health)
 	if current_health <= 0:
+		_is_dead = true
 		died.emit()
 
 func apply_upgrade(upgrade_id: String) -> void:
@@ -91,6 +95,13 @@ func apply_upgrade(upgrade_id: String) -> void:
 			split_level += 1
 		"damage":
 			damage_level += 1
+	_emit_stats()
+
+func grant_level_bonus() -> void:
+	bullet_count += 1
+	attack_speed_level += 1
+	pierce_level += 1
+	split_level += 1
 	_emit_stats()
 
 func _get_attack_interval() -> float:
