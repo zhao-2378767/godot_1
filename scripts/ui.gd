@@ -25,7 +25,7 @@ func _ready() -> void:
 	upgrade_panel.process_mode = Node.PROCESS_MODE_ALWAYS
 	game_over_label.visible = false
 	upgrade_panel.visible = false
-	help_label.text = "WASD 移动｜自动攻击最近敌人｜击杀敌人获得经验"
+	help_label.text = "WASD 移动｜自动攻击最近敌人｜升级自动获得：子弹+1/攻速+1/分裂+1/穿透+1"
 
 	for i in range(upgrade_buttons.size()):
 		upgrade_buttons[i].process_mode = Node.PROCESS_MODE_ALWAYS
